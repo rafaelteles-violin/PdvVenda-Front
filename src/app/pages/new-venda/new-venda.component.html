@@ -1,0 +1,255 @@
+<div class="card">
+  <div class="container">
+    <!-- Left Section -->
+    <div class="menu-section">
+      <header>
+
+        <input type="text" placeholder="Procurar Produto" />
+      </header>
+      <nav class="categories">
+        <button class="active">Bolos</button>
+        <button>Docinhos</button>
+        <button>Tortas</button>
+        <button>Sobremesas</button>
+        <button>Kits</button>
+        <button>Bebidas</button>
+      </nav>
+      <h2>Selecione o Produto</h2>
+      <div class="dish-grid">
+        <!-- Example Dish Card -->
+        <div class="dish-container">
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+              alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+            alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+            alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+            alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+            alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+          <div class="dish-card">
+            <img
+            src="assets/images/boloexemplo.png"
+            alt="bolo"
+            />
+            <h3>Bolo de pote</h3>
+            <p>R$8,00</p>
+            <span>Morango com nutella</span>
+          </div>
+        </div>
+        <!-- Add more dish cards as needed -->
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="order-section">
+      <header>
+        <!-- <h2>Orders #34562</h2> -->
+        <div class="order-type">
+          <button><i class="material-icons">person</i>Cadastrar Cliente</button>
+          <!-- <button>To Go</button>
+          <button>Delivery</button> -->
+        </div>
+      </header>
+      <div class="order-items">
+        <!-- Example Order Item -->
+        <div class="order-item">
+          <img
+            src="assets/images/boloexemplo.png"
+            alt="Spicy seasoned seafood noodles"
+          />
+          <div class="details">
+            <h3>Bolo de pote</h3>
+            <!-- <p>Morango com nutella</p> -->
+            <!-- <input type="text" placeholder="Order Note" /> -->
+          </div>
+          <div class="quantity">
+            <button>-</button>
+            <span>2</span>
+            <button>+</button>
+          </div>
+          <p>R$8,00</p>
+          <button class="remove">&times;</button>
+        </div>
+        <!-- Add more order items as needed -->
+      </div>
+      <footer class="baixo">
+        <div class="summary">
+          <p>Desconto: R$2</p>
+          <p>Total: R$6,00</p>
+        </div>
+        <button
+          class="payment-button"
+          onclick="document.getElementById('filtrodataModal').style.display='block'"
+        >
+          Pagamento
+        </button>
+
+        <!-- <button
+          [disabled]="vendaProduto.length == 0"
+          class="btn submit-button mr-2"
+          onclick="document.getElementById('filtrodataModal').style.display='block'"
+        >
+          <i class="material-icons">payments</i>
+          Pagamento
+        </button> -->
+      </footer>
+    </div>
+  </div>
+</div>
+
+<div id="filtrodataModal" style="display: none">
+  <section class="modal mostrar">
+    <!-- MODAL PAGAMENTO -->
+
+    <div class="quadro">
+      <!--TIPO DE Venda-->
+      <div class="container">
+        <!-- Confirmation Section -->
+        <div class="confirmation">
+          <div class="header">
+            <h1>Conferir</h1>
+            <!-- <button>+</button> -->
+          </div>
+          <div class="order-item">
+            <img
+            src="assets/images/boloexemplo.png"
+              alt="Spicy seasoned seafood noodles"
+            />
+            <div class="order-details">
+              <p>Bolo de pote</p>
+              <p>R$6,00</p>
+            </div>
+            <div class="order-quantity">
+              <input type="number" value="2" min="1" />
+              <p>R$8,00</p>
+            </div>
+            <button>&times;</button>
+          </div>
+          <!-- Repeat for other items -->
+        </div>
+
+        <!-- Payment Section -->
+        <div class="payment">
+          <h1>Pagamento</h1>
+          <!-- <div class="payment-method">
+            <button class="active">Credit Card</button>
+            <button>Paypal</button>
+            <button>Cash</button>
+          </div> -->
+          <div class="checkbox-container">
+            <div class="checkbox-wrapper-16">
+              <label class="checkbox-wrapper">
+                <input class="checkbox-input" type="checkbox">
+                <span class="checkbox-tile">
+                  <span class="checkbox-icon">
+                    <i class="fas fa-money-bill"></i>
+
+                  </span>
+                  <span class="checkbox-label">Dinheiro</span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper-16">
+              <label class="checkbox-wrapper">
+                <input class="checkbox-input" type="checkbox">
+                <span class="checkbox-tile">
+                  <span class="checkbox-icon">
+                    <i class="fas fa-money-bill"></i>
+
+                  </span>
+                  <span class="checkbox-label">Pix</span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper-16">
+              <label class="checkbox-wrapper">
+                <input class="checkbox-input" type="checkbox">
+                <span class="checkbox-tile">
+                  <span class="checkbox-icon">
+                    <i class="fas fa-credit-card"></i>
+                  </span>
+                  <span class="checkbox-label">Débito</span>
+                </span>
+              </label>
+            </div>
+            <div class="checkbox-wrapper-16">
+              <label class="checkbox-wrapper">
+                <input class="checkbox-input" type="checkbox">
+                <span class="checkbox-tile">
+                  <span class="checkbox-icon">
+                    <i class="fas fa-credit-card"></i>
+                  </span>
+                  <span class="checkbox-label">Crédito</span>
+                </span>
+              </label>
+            </div>
+            </div>
+          <p>Desconto: R$2,00</p>
+          <p>Total: R$6,00</p>
+
+
+
+
+
+
+          <!--  -->
+
+
+          <!--  -->
+
+
+
+
+
+
+          <div class="actions">
+            <button class="cancel">Cancelar</button>
+            <button class="confirm">Finalizar Venda</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div>
+          <button class="btn salvar" type="button">
+            <i class="material-icons">done</i> Conferir
+          </button>
+        </div> -->
+    </div>
+  </section>
+</div>

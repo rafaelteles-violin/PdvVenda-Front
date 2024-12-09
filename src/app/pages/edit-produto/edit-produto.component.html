@@ -1,0 +1,35 @@
+<!-- Form Layout -->
+<div class="card">
+  <div class="card-body">
+    <h2 class="mb-32">Editar Produto</h2>
+    <form>
+      <label for="nome" class="d-block mb-2">Nome</label>
+          <mat-form-field class="w-100 fs-16" appearance="outline">
+            <input matInput id="nome" type="text" placeholder="Digite o nome do produto" />
+          </mat-form-field>
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="nome" class="d-block mb-2">Preço Custo</label>
+          <mat-form-field class="w-100 fs-16" appearance="outline">
+            <input matInput id="nome" type="text" placeholder="Digite o preço de Custo" />
+          </mat-form-field>
+        </div>
+        <div class="form-group">
+          <label for="email" class="d-block mb-2">Preço Venda</label>
+          <mat-form-field class="w-100 fs-16" appearance="outline">
+            <input matInput id="email" type="email" placeholder="Digite o preço de Venda" />
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <label for="email" class="d-block mb-2">Descrição</label>
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <textarea matInput rows="6" placeholder="Descreva o seu produto"></textarea>
+      </mat-form-field>
+      <button class="btn btn-primary" type="submit">Salvar</button>
+    </form>
+  </div>
+</div>
+
