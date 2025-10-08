@@ -21,13 +21,15 @@ export class NewVendaComponent implements OnInit {
 
   orderItems: any[] = [];
   selectedPayment: string = '';
- 
+  isLoading = false;
+  totalCompra: any;
+
   constructor(
     private produtoService: ProdutoService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.produtoService.getProdutos().subscribe(produtos => {
       this.produtosOriginais = produtos;
       this.filtroSubject.next(this.filtro);
@@ -79,9 +81,34 @@ export class NewVendaComponent implements OnInit {
 
   calcularTotal(): string {
     const total = this.orderItems.reduce((total, item) => total + item.valor * item.quantidade, 0);
+    this.totalCompra = total
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     }).format(total);
+  }
+
+  finalizarVenda() {
+    this.isLoading = true; // desabilita o botão
+    const venda = {
+      quantidade: this.orderItems.length,
+      valorTotal: this.totalCompra,
+      formaPagamento: this.selectedPayment,
+      vendaProduto: this.orderItems
+    }
+
+    this.produtoService.enviarVenda(venda)
+      .subscribe({
+        next: (res) => {
+          alert('Venda realizada com sucesso!');
+          this.orderItems = [];
+        },
+        error: (err) => {
+          console.error('Erro ao finalizar venda', err);
+        },
+        complete: () => {
+          this.isLoading = false; // reabilita o botão
+        }
+      });
   }
 }

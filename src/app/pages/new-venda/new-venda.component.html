@@ -7,7 +7,8 @@
       </button>
 
       <header>
-        <input type="text" class="search__input" placeholder="Procurar Produto" [(ngModel)]="filtro" (input)="filtrarProdutos()" />
+        <input type="text" class="search__input" placeholder="Procurar Produto" [(ngModel)]="filtro"
+          (input)="filtrarProdutos()" />
       </header>
       <h2>Selecione o Bolo</h2>
       <div class="dish-grid">
@@ -94,8 +95,9 @@
         <div class="summary">
           <h2>Total: {{ calcularTotal() }}</h2>
         </div>
-        <button class="payment-button">
-          Finalizar venda
+        <button class="payment-button" 
+        (click)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
+          {{ isLoading ? 'Finalizando...' : 'Finalizar venda' }}
         </button>
       </footer>
     </div>

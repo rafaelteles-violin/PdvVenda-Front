@@ -32,4 +32,10 @@ export class ProdutoService {
     });
   }
 
+  enviarVenda(obj: any) {
+    return this.http.post(`${environment.urlApi}venda`, obj, {
+
+    });
+  }
+
 }
