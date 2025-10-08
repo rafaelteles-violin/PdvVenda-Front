@@ -1,35 +1,44 @@
-<!-- Form Layout -->
 <div class="card">
   <div class="card-body">
-    <h2 class="mb-32">Editar Produto</h2>
-    <form>
+
+     <button class="btn btn-secondary mb-3" (click)="voltar()">
+      <i class="material-icons">arrow_back</i> Voltar
+    </button>
+
+    <h2 class="mb-32">Editar</h2>
+    <form [formGroup]="produtoForm" (ngSubmit)="salvarProduto()">
+      
       <label for="nome" class="d-block mb-2">Nome</label>
-          <mat-form-field class="w-100 fs-16" appearance="outline">
-            <input matInput id="nome" type="text" placeholder="Digite o nome do produto" />
-          </mat-form-field>
+      <mat-form-field class="w-100 fs-16" appearance="outline">
+        <input matInput id="nome" type="text" placeholder="Digite o nome do produto" formControlName="nome" />
+      </mat-form-field>
+      <div class="error" *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched">
+        Nome é obrigatório.
+      </div>
+
       <div class="form-row">
+        <div class="form-group">
+          <label for="codigo" class="d-block mb-2">Código</label>
+          <mat-form-field class="w-100 fs-16" appearance="outline">
+            <input matInput id="codigo" type="text" placeholder="Digite o Código" formControlName="codigo" />
+          </mat-form-field>
+          <div class="error" *ngIf="produtoForm.get('codigo')?.invalid && produtoForm.get('codigo')?.touched">
+            Código é obrigatório.
+          </div>
+        </div>
 
         <div class="form-group">
-          <label for="nome" class="d-block mb-2">Preço Custo</label>
+          <label for="valor" class="d-block mb-2">Preço</label>
           <mat-form-field class="w-100 fs-16" appearance="outline">
-            <input matInput id="nome" type="text" placeholder="Digite o preço de Custo" />
+            <input matInput id="valor" type="number" placeholder="Digite o preço de Venda" formControlName="valor" />
           </mat-form-field>
-        </div>
-        <div class="form-group">
-          <label for="email" class="d-block mb-2">Preço Venda</label>
-          <mat-form-field class="w-100 fs-16" appearance="outline">
-            <input matInput id="email" type="email" placeholder="Digite o preço de Venda" />
-          </mat-form-field>
+          <div class="error" *ngIf="produtoForm.get('valor')?.invalid && produtoForm.get('valor')?.touched">
+            Preço é obrigatório e deve ser maior que zero.
+          </div>
         </div>
       </div>
 
-
-      <label for="email" class="d-block mb-2">Descrição</label>
-      <mat-form-field class="w-100 fs-16" appearance="outline">
-        <textarea matInput rows="6" placeholder="Descreva o seu produto"></textarea>
-      </mat-form-field>
-      <button class="btn btn-primary" type="submit">Salvar</button>
+      <button class="btn btn-primary" type="submit" [disabled]="produtoForm.invalid">Salvar Alterações</button>
     </form>
   </div>
 </div>
-

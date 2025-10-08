@@ -15,6 +15,8 @@ import { DemoFlexyModule } from './demo-flexy-module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ComponentsModule } from './components/components.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -32,7 +34,9 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     DashboardModule,
     ComponentsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    CommonModule,
+    HttpClientModule  
   ],
   providers: [
     provideAnimationsAsync()

@@ -12,7 +12,7 @@
 .card{
   border-radius: 25px;
   background-color: #fff;
-  margin-top: -25px;
+  margin-top: -15px;
 }
 .container {
   display: flex;
@@ -22,7 +22,7 @@
 }
 
 .menu-section {
-  flex: 2;
+  flex: 1;
   padding: 20px;
   max-height: 90vh;
   overflow-y: scroll;
@@ -43,7 +43,6 @@
   border: none;
   border-radius: 5px;
   background: #fafafa;
-  color: #fff;
 }
 
 .categories {
@@ -72,13 +71,6 @@
   gap: 15px;
 }
 
-.dish-card {
-  background: #2a2a40;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-}
-
 .dish-card img {
   width: 100%;
   border-radius: 10px;
@@ -102,6 +94,11 @@
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  // width: 250px; /* largura */
+  // height: 50px; /* altura */
 }
 
 .dish-card:hover {
@@ -114,6 +111,7 @@
   height: auto;
   border-radius: 10px;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 .dish-card h3 {
@@ -799,4 +797,115 @@ section.modal .quadro button.salvar[disabled] {
 .baixo{
   margin-top: auto;
 
+}
+
+
+
+
+.payment-methods {
+  margin-top: 20px;
+}
+
+.payment-methods h3 {
+  margin-bottom: 10px;
+}
+
+.payment-options label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.payment-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.payment-button:hover {
+  background-color: #45a049;
+}
+
+.order-items {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+
+.payment {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.payment h1 {
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.checkbox-container {
+  display: flex;
+  flex-wrap: wrap;   /* Permite que os itens se movam para a linha seguinte */
+  gap: 20px;         /* Espaço entre os itens */
+}
+
+.checkbox-wrapper-16 {
+  flex-basis: 48%;   /* Faz com que cada item ocupe 48% da largura, permitindo 2 itens por linha */
+  max-width: 48%;    /* Garantia de largura máxima */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 80px;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-input {
+  margin-right: 10px;
+}
+
+.checkbox-tile {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .checkbox-wrapper-16 {
+    flex-basis: 100%;  
+    max-width: 100%;  
+  }
+}
+
+.dish-card img {
+  width: 100px;
+  height: auto;
+  object-fit: contain; 
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  text-transform: uppercase;
+  gap: 8px;
 }
