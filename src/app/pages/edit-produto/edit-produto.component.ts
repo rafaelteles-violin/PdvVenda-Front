@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ProdutoService } from 'src/app/service/produto.service';
 
 @Component({
   selector: 'app-edit-produto',
@@ -20,7 +21,8 @@ export class EditProdutoComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private produtoService: ProdutoService
   ) {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
@@ -37,22 +39,22 @@ export class EditProdutoComponent implements OnInit {
   }
 
   carregarProduto(id: string) {
-    this.http.get<any>(`http://localhost:5087/Produto/${id}`)
-      .subscribe({
-        next: (data) => {
-          this.produtoForm.patchValue({
-            nome: data.nome,
-            codigo: data.codigo,
-            valor: data.valor
-          });
-        },
-        error: (err) => console.error("Erro ao carregar produto", err)
-      });
+    this.produtoService.getProdutoId(id).subscribe({
+      next: (data) => {
+        this.produtoForm.patchValue({
+          nome: data.nome,
+          codigo: data.codigo,
+          valor: data.valor
+        });
+      },
+      error: (err) => console.error("Erro ao carregar produto", err)
+    });
   }
 
   voltar() {
-  this.router.navigate(['/listProdutos']);
-}
+    this.router.navigate(['/listProdutos']);
+  }
+
 
   salvarProduto() {
     if (this.produtoForm.invalid) {
@@ -67,16 +69,15 @@ export class EditProdutoComponent implements OnInit {
       produtoId: this.idProduto
     };
 
-    this.http.put('http://localhost:5087/Produto', produto)
-      .subscribe({
-        next: () => {
-          alert('Produto atualizado com sucesso!');
-          this.router.navigate(['/listProdutos']);
-        },
-        error: (err) => {
-          console.error('Erro ao atualizar produto', err);
-          alert('Erro ao atualizar produto.');
-        }
-      });
+    this.produtoService.atualizarProduto(produto).subscribe({
+      next: () => {
+        alert('Produto atualizado com sucesso!');
+        this.voltar();
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar produto', err);
+        alert('Erro ao atualizar produto.');
+      }
+    });
   }
 }

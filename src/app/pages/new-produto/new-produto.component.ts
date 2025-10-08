@@ -34,11 +34,14 @@ export class NewProdutoComponent {
   }
 
   salvarProduto() {
-    if (this.produtoForm.invalid) {
-      this.produtoService.adicionarProduto(this.produtoForm).subscribe({
+     if (this.produtoForm.invalid) {
+      this.produtoForm.markAllAsTouched();
+      return;
+    }
+      this.produtoService.adicionarProduto(this.produtoForm.value).subscribe({
         next: () => {
           alert('Produto salvo com sucesso!');
-          this.router.navigate(['/list-produto']); // Redireciona para a lista de produtos
+          this.voltar();
         },
         error: (err) => {
           console.error('Erro ao salvar produto', err);
@@ -46,15 +49,7 @@ export class NewProdutoComponent {
         }
       });
 
-      // this.produtoForm.markAllAsTouched();
-      this.router.navigate(['/listProdutos']);
+       this.produtoForm.markAllAsTouched();
       return;
-    }
-
-    const produto = {
-      nome: this.produtoForm.value.nome,
-      codigo: this.produtoForm.value.codigo,
-      valor: this.produtoForm.value.valor
-    };
   }
 }

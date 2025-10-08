@@ -16,6 +16,10 @@ export class ProdutoService {
     return this.http.get<any[]>(`${environment.urlApi}Produto`);
   }
 
+  getProdutoId(id: string): Observable<any> {
+    return this.http.get<any[]>(`${environment.urlApi}Produto/${id}`);
+  }
+
   adicionarProduto(obj: any) {
     return this.http.post(`${environment.urlApi}produto`, obj, {
 
@@ -23,7 +27,7 @@ export class ProdutoService {
   }
 
   atualizarProduto(obj: any) {
-    return this.http.post(`${environment.urlApi}produto`, obj, {
+    return this.http.put(`${environment.urlApi}produto`, obj, {
 
     });
   }
