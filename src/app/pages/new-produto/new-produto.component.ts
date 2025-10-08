@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
+import { ProdutoService } from 'src/app/service/produto.service';
 
 @Component({
   selector: 'app-new-produto',
@@ -18,7 +19,8 @@ export class NewProdutoComponent {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private produtoService: ProdutoService
   ) {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
@@ -27,24 +29,13 @@ export class NewProdutoComponent {
     });
   }
 
-    voltar() {
-  this.router.navigate(['/listProdutos']);
-}
+  voltar() {
+    this.router.navigate(['/listProdutos']);
+  }
 
   salvarProduto() {
     if (this.produtoForm.invalid) {
-      this.produtoForm.markAllAsTouched();
-      return;
-    }
-
-    const produto = {
-      nome: this.produtoForm.value.nome,
-      codigo: this.produtoForm.value.codigo,
-      valor: this.produtoForm.value.valor
-    };
-
-    this.http.post('http://localhost:5087/Produto', produto)
-      .subscribe({
+      this.produtoService.adicionarProduto(this.produtoForm).subscribe({
         next: () => {
           alert('Produto salvo com sucesso!');
           this.router.navigate(['/list-produto']); // Redireciona para a lista de produtos
@@ -54,5 +45,16 @@ export class NewProdutoComponent {
           alert('Erro ao salvar produto.');
         }
       });
+
+      // this.produtoForm.markAllAsTouched();
+      this.router.navigate(['/listProdutos']);
+      return;
+    }
+
+    const produto = {
+      nome: this.produtoForm.value.nome,
+      codigo: this.produtoForm.value.codigo,
+      valor: this.produtoForm.value.valor
+    };
   }
 }

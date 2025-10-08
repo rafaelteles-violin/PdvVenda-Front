@@ -21,13 +21,13 @@ export class NewVendaComponent implements OnInit {
 
   orderItems: any[] = [];
   selectedPayment: string = '';
-
+ 
   constructor(
     private produtoService: ProdutoService,
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit() { 
     this.produtoService.getProdutos().subscribe(produtos => {
       this.produtosOriginais = produtos;
       this.filtroSubject.next(this.filtro);

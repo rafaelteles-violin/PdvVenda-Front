@@ -2,24 +2,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environment/environment';
 
-// interface Produto {
-//   id: string;
-//   nome: string;
-//   valorTxt: string;
-//   valor: number;
-//   codigo: string;
-// }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProdutoService {
-  private apiUrl = 'http://localhost:5087/Produto'; // URL da sua API
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getProdutos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${environment.urlApi}Produto`);
   }
+
+  adicionarProduto(obj: any) {
+    return this.http.post(`${environment.urlApi}produto`, obj, {
+
+    });
+  }
+
+  atualizarProduto(obj: any) {
+    return this.http.post(`${environment.urlApi}produto`, obj, {
+
+    });
+  }
+
 }
