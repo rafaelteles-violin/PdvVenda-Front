@@ -67,7 +67,13 @@ export class FinanceiroComponent {
           { nomeProduto: 'Bolo de laranja', quantidade: 1, precoUnitario:"R$ 22,98" }
         ]
       }
-    ]
+    ],
+    vendaProdutos: [
+    { nomeProduto: "Bolo de fuba", quantidade: 1 },
+    { nomeProduto: "Bolo de laranja", quantidade: 3 },
+    { nomeProduto: "Bolo de Uva G", quantidade: 4 },
+    { nomeProduto: "Bolo de limao", quantidade: 6 }
+  ]
   };
 
   filtrarPorData() {
