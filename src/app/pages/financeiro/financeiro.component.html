@@ -1,0 +1,106 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="container my-4">
+
+  <!-- BOTÃO VOLTAR -->
+  <div class="d-flex mb-4">
+    <button class="btn btn-secondary d-flex align-items-center gap-2 shadow-sm">
+      <i class="material-icons">arrow_back</i> Voltar
+    </button>
+  </div>
+
+  <!-- FILTRO DE DATAS -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-3">
+        <i class="material-icons text-primary me-2">filter_alt</i> Filtrar por Data
+      </h5>
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label for="dataInicio" class="form-label">Data Início</label>
+          <input id="dataInicio" type="date" class="form-control form-control-lg" [(ngModel)]="dataInicio">
+        </div>
+
+        <div class="col-md-5">
+          <label for="dataFim" class="form-label">Data Fim</label>
+          <input id="dataFim" type="date" class="form-control form-control-lg" [(ngModel)]="dataFim">
+        </div>
+
+        <div class="col-md-2 d-flex gap-2">
+          <button class="btn btn-primary flex-fill" (click)="filtrarPorData()">
+            <i class="material-icons">filter_alt</i> Filtrar
+          </button>
+          <button class="btn btn-outline-secondary flex-fill" (click)="limparFiltro()">
+            <i class="material-icons">restart_alt</i> Limpar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÍCONE DE BUSCA -->
+  <div class="mb-4 d-flex justify-content-start">
+    <i class="material-icons text-muted fs-3">search</i>
+  </div>
+
+  <!-- CARDS DE RESUMO -->
+  <div class="card-resumo">
+    <div class="col-md-6">
+      <div class="card summary-card shadow-sm">
+        <div class="card-body text-center">
+          <i class="material-icons text-primary fs-2">shopping_cart</i>
+          <h5 class="mt-2">Total de Vendas</h5>
+          <h3 class="fw-bold">{{ dados.totalDeVenda }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card summary-card shadow-sm">
+        <div class="card-body text-center">
+          <i class="material-icons text-success fs-2">payments</i>
+          <h5 class="mt-2">Total Faturamento</h5>
+          <h3 class="fw-bold">{{ dados.totalFaturamento }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABELA DE VENDAS -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white fw-semibold">
+      Vendas Realizadas
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Data da Venda</th>
+              <th>Detalhes</th>
+              <th>Forma de Pagamento</th>
+              <th>Total Produtos</th>
+              <th>Valor Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let venda of dados.vendaDtos">
+              <td>{{ venda.dataVenda }}</td>
+              <td>
+                <summary class="text-primary">produtos</summary>
+                <ul class="list-unstyled ms-3 mt-2">
+                  <li *ngFor="let detalhe of venda.vendaDetalhe">
+                    {{ detalhe.nomeProduto }} - {{detalhe.precoUnitario}} - {{ detalhe.quantidade }} un. 
+                  </li>
+                </ul>
+              </td>
+              <td>{{ venda.formaDePagamento }}</td>
+              <td>{{ venda.totalProdutosVendidos }}</td>
+              <td>{{ venda.valorTotal }}</td>              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

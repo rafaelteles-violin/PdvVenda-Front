@@ -7,6 +7,7 @@ import { ListProdutoComponent } from './pages/list-produto/list-produto.componen
 import { NewProdutoComponent } from './pages/new-produto/new-produto.component';
 import { EditProdutoComponent } from './pages/edit-produto/edit-produto.component';
 import { NewVendaComponent } from './pages/new-venda/new-venda.component';
+import { FinanceiroComponent } from './pages/financeiro/financeiro.component';
 
 
 
@@ -17,11 +18,11 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
       { path: 'home', component: DashboardComponent },
-      // { path: 'table', component: ProductComponent },
       { path: 'listProdutos', component: ListProdutoComponent },
       { path: 'newProdutos', component: NewProdutoComponent },
       { path: 'editProdutos/:id', component: EditProdutoComponent },
       { path: 'newVenda', component: NewVendaComponent },
+      { path: 'financeiro', component: FinanceiroComponent },
 
 
     ]
