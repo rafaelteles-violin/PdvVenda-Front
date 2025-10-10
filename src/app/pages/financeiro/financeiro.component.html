@@ -4,7 +4,7 @@
 
   <!-- BOTÃO VOLTAR -->
   <div class="d-flex mb-4">
-    <button class="btn btn-secondary d-flex align-items-center gap-2 shadow-sm">
+    <button class="btn btn-secondary d-flex align-items-center gap-2 shadow-sm" (click)="voltar()">
       <i class="material-icons">arrow_back</i> Voltar
     </button>
   </div>
@@ -15,32 +15,30 @@
       <h5 class="card-title mb-3">
         <i class="material-icons text-primary me-2">filter_alt</i> Filtrar por Data
       </h5>
-      <div class="row g-3 align-items-end">
-        <div class="col-md-5">
-          <label for="dataInicio" class="form-label">Data Início</label>
-          <input id="dataInicio" type="date" class="form-control form-control-lg" [(ngModel)]="dataInicio">
-        </div>
 
-        <div class="col-md-5">
-          <label for="dataFim" class="form-label">Data Fim</label>
-          <input id="dataFim" type="date" class="form-control form-control-lg" [(ngModel)]="dataFim">
-        </div>
+      <!-- LINHA DO FILTRO CENTRALIZADA -->
+      <div class="d-flex filtro-datas">
+        <mat-form-field appearance="outline" style="width: 180px;">
+          <mat-label>Data Início</mat-label>
+          <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="dataInicio" placeholder="Selecione a data" />
+          <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+          <mat-datepicker #pickerInicio></mat-datepicker>
+        </mat-form-field>
 
-        <div class="col-md-2 d-flex gap-2">
-          <button class="btn btn-primary flex-fill" (click)="filtrarPorData()">
-            <i class="material-icons">filter_alt</i> Filtrar
-          </button>
-          <button class="btn btn-outline-secondary flex-fill" (click)="limparFiltro()">
-            <i class="material-icons">restart_alt</i> Limpar
-          </button>
-        </div>
+        <mat-form-field appearance="outline" style="width: 180px;">
+          <mat-label>Data Fim</mat-label>
+          <input matInput [matDatepicker]="pickerFim" [(ngModel)]="dataFim" placeholder="Selecione a data" />
+          <mat-datepicker-toggle matSuffix [for]="pickerFim"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFim></mat-datepicker>
+        </mat-form-field>
+
+        <button class="btn btn-primary btn-alinhado" 
+        (click)="filtrarPorData()"  [disabled]="isLoading">
+          <i class="material-icons">filter_alt</i>
+          {{ isLoading ? 'Filtrando...' : 'Filtrar' }} 
+        </button>
       </div>
     </div>
-  </div>
-
-  <!-- ÍCONE DE BUSCA -->
-  <div class="mb-4 d-flex justify-content-start">
-    <i class="material-icons text-muted fs-3">search</i>
   </div>
 
   <!-- CARDS DE RESUMO -->
@@ -50,7 +48,7 @@
         <div class="card-body text-center">
           <i class="material-icons text-primary fs-2">shopping_cart</i>
           <h5 class="mt-2">Total de Vendas</h5>
-          <h3 class="fw-bold">{{ dados.totalDeVenda }}</h3>
+          <h3 class="fw-bold">{{ vendas.totalDeVenda }}</h3>
         </div>
       </div>
     </div>
@@ -60,7 +58,7 @@
         <div class="card-body text-center">
           <i class="material-icons text-success fs-2">payments</i>
           <h5 class="mt-2">Total Faturamento</h5>
-          <h3 class="fw-bold">{{ dados.totalFaturamento }}</h3>
+          <h3 class="fw-bold">{{ vendas.totalFaturamento }}</h3>
         </div>
       </div>
     </div>
@@ -68,8 +66,8 @@
 
   <!-- TABELA DE VENDAS -->
   <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white fw-semibold">
-      Vendas Realizadas
+    <div class="card-header bg-primary text-white fw-semibold text-center">
+      VENDAS REALIZADAS
     </div>
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -84,30 +82,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let venda of dados.vendaDtos">
+            <tr *ngFor="let venda of vendas.vendaDtos">
               <td>{{ venda.dataVenda }}</td>
               <td>
                 <summary class="text-primary">produtos</summary>
                 <ul class="list-unstyled ms-3 mt-2">
                   <li *ngFor="let detalhe of venda.vendaDetalhe">
-                    {{ detalhe.nomeProduto }} - {{detalhe.precoUnitario}} - {{ detalhe.quantidade }} un. 
+                    {{ detalhe.nomeProduto }} - {{detalhe.precoUnitario}} - {{ detalhe.quantidade }} un.
                   </li>
                 </ul>
               </td>
               <td>{{ venda.formaDePagamento }}</td>
               <td>{{ venda.totalProdutosVendidos }}</td>
-              <td>{{ venda.valorTotal }}</td>              
+              <td>{{ venda.valorTotal }}</td>
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> 
     </div>
   </div>
 
-
   <!-- TABELA POR PRODUTOS -->
   <div class="card shadow-sm">
-    <div class="card-header bg-primary text-white fw-semibold">
+    <div class="card-header bg-primary text-white fw-semibold text-center">
       QUANTIDADE VENDIDA
     </div>
     <div class="card-body p-0">
@@ -120,15 +117,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let venda of dados.vendaProdutos">
+            <tr *ngFor="let venda of vendas.vendaProdutos">
               <td>{{ venda.nomeProduto }}</td>
-              <td>{{ venda.quantidade }}</td>           
+              <td>{{ venda.quantidade }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </div>
-
 
 </div>

@@ -38,4 +38,10 @@ export class ProdutoService {
     });
   }
 
+   obterVendas(obj: any) {
+    return this.http.post(`${environment.urlApi}venda/obtervendapordata`, obj, {
+
+    });
+  }
+
 }

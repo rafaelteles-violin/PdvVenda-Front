@@ -444,6 +444,41 @@ color: #6c00bd;
   background: #555;
 }
 
+.data-filtro {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
 
+  mat-form-field {
+    width: 160px;
+  }
+}
+
+.btn-alinhado {
+  height: 56px; /* mesma altura do mat-form-field */
+  padding: 0 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.filtro-datas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center; /* centraliza horizontalmente */
+  margin-bottom: 16px;
+}
+
+.btn-alinhado {
+  height: 56px; /* igual à altura dos inputs mat-form-field */
+  padding: 0 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
 
