@@ -68,8 +68,6 @@ export class FinanceiroComponent {
     };
 
     this.produtoService.obterVendas(data).subscribe({
-      // next: (data) => (this.vendas = data),
-      // error: (err) => console.error('Erro ao carregar vendas', err),
       next: (res) => {
         this.vendas = res;
         this.isLoading = false;
