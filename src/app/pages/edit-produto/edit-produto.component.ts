@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProdutoService } from 'src/app/service/produto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-produto',
@@ -70,14 +71,33 @@ export class EditProdutoComponent implements OnInit {
     };
 
     this.produtoService.atualizarProduto(produto).subscribe({
-      next: () => {
-        alert('Produto atualizado com sucesso!');
+      next: (res: any) => {
+        this.msgSucess(res.data.message)
         this.voltar();
       },
       error: (err) => {
-        console.error('Erro ao atualizar produto', err);
-        alert('Erro ao atualizar produto.');
+        this.msgError("erro ao atualizar produto")
       }
+    });
+  }
+
+  msgSucess(msg: string) {
+    Swal.fire({
+      icon: "success",
+      title: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.router.navigate(['/listProdutos']);
+    });
+  }
+
+  msgError(msg: string) {
+    Swal.fire({
+      icon: "error",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
     });
   }
 }

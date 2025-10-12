@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ProdutoService } from 'src/app/service/produto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-produto',
@@ -25,7 +26,7 @@ export class NewProdutoComponent {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
       codigo: [''],
-      valor: [0, [Validators.required, Validators.min(0.01)]]
+      valor: [null, [Validators.required, Validators.min(0.01)]]
     });
   }
 
@@ -34,22 +35,41 @@ export class NewProdutoComponent {
   }
 
   salvarProduto() {
-     if (this.produtoForm.invalid) {
+    if (this.produtoForm.invalid) {
       this.produtoForm.markAllAsTouched();
       return;
     }
-      this.produtoService.adicionarProduto(this.produtoForm.value).subscribe({
-        next: () => {
-          alert('Produto salvo com sucesso!');
-          this.voltar();
-        },
-        error: (err) => {
-          console.error('Erro ao salvar produto', err);
-          alert('Erro ao salvar produto.');
-        }
-      });
+    this.produtoService.adicionarProduto(this.produtoForm.value).subscribe({
+      next: (res: any) => {
+        this.msgSucess(res.data.message);
+        this.voltar();
+      },
+      error: (err) => {
+        this.msgError("Erro ao salvar produto")
+      }
+    });
 
-       this.produtoForm.markAllAsTouched();
-      return;
+    this.produtoForm.markAllAsTouched();
+    return;
+  }
+
+  msgSucess(msg: string) {
+    Swal.fire({
+      icon: "success",
+      title: msg,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(() => {
+      this.router.navigate(['/listProdutos']);
+    });
+  }
+
+  msgError(msg: string) {
+    Swal.fire({
+      icon: "error",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
+    });
   }
 }

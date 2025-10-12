@@ -30,7 +30,7 @@
         <div class="form-group">
           <label for="valor" class="d-block mb-2">Preço</label>
           <mat-form-field class="w-100 fs-16" appearance="outline">
-            <input matInput id="valor" type="number" placeholder="Digite o preço de Venda" formControlName="valor" />
+            <input matInput id="valor" type="number" placeholder="Digite o preço de Venda" formControlName="valor" min="0.01" />
           </mat-form-field>
           <div class="error" *ngIf="produtoForm.get('valor')?.invalid && produtoForm.get('valor')?.touched">
             Preço é obrigatório e deve ser maior que zero.

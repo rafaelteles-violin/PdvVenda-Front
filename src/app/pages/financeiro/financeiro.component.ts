@@ -12,6 +12,7 @@ import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
 } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import Swal from 'sweetalert2';
 
 registerLocaleData(localePt);
 
@@ -57,7 +58,7 @@ export class FinanceiroComponent {
 
   filtrarPorData() {
     if (!this.dataInicio || !this.dataFim) {
-      alert('Selecione o período corretamente.');
+      this.msgAlert('Informe a data início e a data fim');
       return;
     }
     this.isLoading = true;
@@ -68,17 +69,38 @@ export class FinanceiroComponent {
     };
 
     this.produtoService.obterVendas(data).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         this.vendas = res;
         this.isLoading = false;
+        if(this.vendas.vendaDtos.length == 0){
+          this.msgAlert(res.mensagem)
+        }
       },
       error: (err) => {
-        this.isLoading = false;
+        this.msgError("falha ao consultar venda")
       },
     });
   }
 
   voltar() {
     this.router.navigate(['/home']);
+  }
+
+  msgAlert(msg: string) {
+    Swal.fire({
+      icon: "info",
+      title: msg,
+      showConfirmButton: true,
+      // timer: 3000
+    });
+  }
+
+  msgError(msg: string) {
+    Swal.fire({
+      icon: "error",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
+    });
   }
 }

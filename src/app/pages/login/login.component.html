@@ -1,0 +1,52 @@
+<div class="login-container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card login-card shadow-lg rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <!-- Coluna com imagem -->
+            <div
+                class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-gradient-primary text-white p-4">
+                <div class="text-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Login"
+                        class="img-fluid mb-3" style="max-width: 250px" />
+                    <h4 class="fw-semibold">Bem-vindo ao Sistema</h4>
+                    <p class="small opacity-75">Gerencie suas vendas de forma simples e eficiente</p>
+                </div>
+            </div>
+
+            <!-- Coluna com formulário -->
+            <div class="col-lg-6 bg-white p-5 d-flex flex-column justify-content-center">
+                <div class="text-center mb-4">
+                    <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Logo" class="mb-3"
+                        style="width: 60px" />
+                    <h4 class="fw-semibold text-primary">Acesso ao Sistema</h4>
+                </div>
+
+                <form>
+                    <div class="form-group mb-4">
+                        <label for="usuario" class="form-label fw-medium">Usuário</label>
+                        <input type="text" id="usuario" class="form-control form-control-lg"
+                            placeholder="Digite seu usuário" [(ngModel)]="login" name="usuario" required />
+                    </div>
+
+                    <div class="form-group mb-5">
+                        <label for="senha" class="form-label fw-medium">Senha</label>
+                        <input type="password" id="senha" class="form-control form-control-lg"
+                            placeholder="Digite sua senha" [(ngModel)]="senha" name="senha" required />
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm login-btn"
+                        [disabled]="autenticando"
+                        (click)="autenticar()">
+                            Entrar
+                        </button>
+                    </div>
+                </form>
+
+
+                <div class="text-center mt-4">
+                    <a href="#" class="small text-muted text-decoration-none">Esqueceu sua senha?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

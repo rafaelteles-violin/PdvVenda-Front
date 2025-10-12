@@ -5,6 +5,7 @@ import { ProdutoService } from 'src/app/service/produto.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-new-venda',
@@ -88,7 +89,31 @@ export class NewVendaComponent implements OnInit {
     }).format(total);
   }
 
+
+
   finalizarVenda() {
+    Swal.fire({
+      title: "Deseja confirmar a venda?",
+      showCancelButton: true,
+      confirmButtonText: "Finalizar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: "info",
+          title: "Processando a venda...",
+          showConfirmButton: false,
+          timer: 1000
+        });
+
+        this.confirmarVenda();
+      }
+    });
+  }
+
+
+
+  confirmarVenda() {
     this.isLoading = true; // desabilita o botão
     const venda = {
       quantidade: this.orderItems.length,
@@ -100,15 +125,33 @@ export class NewVendaComponent implements OnInit {
     this.produtoService.enviarVenda(venda)
       .subscribe({
         next: (res) => {
-          alert('Venda realizada com sucesso!');
+          this.msgSucess('Venda realizada com sucesso!');
           this.orderItems = [];
         },
         error: (err) => {
-          console.error('Erro ao finalizar venda', err);
+          this.msgError('Erro ao finalizar venda');
         },
         complete: () => {
           this.isLoading = false; // reabilita o botão
         }
       });
+  }
+
+  msgSucess(msg: string) {
+    Swal.fire({
+      icon: "success",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
+
+  msgError(msg: string) {
+    Swal.fire({
+      icon: "error",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
+    });
   }
 }

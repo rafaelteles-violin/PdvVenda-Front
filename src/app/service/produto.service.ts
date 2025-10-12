@@ -17,7 +17,7 @@ export class ProdutoService {
     private storage: StorageService) { }
 
   getProdutos(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlApi}Produto/${this.lojaContext.lojaId}`, {
+    return this.http.get<any[]>(`${environment.urlApi}produto/listaProdutos/${this.lojaContext.lojaId}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.storage.getToken()}`,
       }),
@@ -61,7 +61,7 @@ export class ProdutoService {
 
   obterVendas(obj: any) {
     obj.lojaId = this.lojaContext.lojaId;
-    return this.http.post(`${environment.urlApi}venda/obtervendapordata/${this.lojaContext.lojaId}`, obj, {
+    return this.http.post(`${environment.urlApi}venda/obtervendapordata`, obj, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.storage.getToken()}`,
       }),

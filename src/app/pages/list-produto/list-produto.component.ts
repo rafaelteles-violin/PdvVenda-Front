@@ -4,6 +4,7 @@ import { Router, RouterModule } from '@angular/router';
 import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProdutoService } from 'src/app/service/produto.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list-produto',
@@ -35,7 +36,8 @@ export class ListProdutoComponent implements OnInit {
         this.produtos = data;
         this.produtosFiltrados = data;
       },
-      error: (err) => console.error("Erro ao carregar produtos", err)
+
+      error: (err) => this.msgError("Erro ao carregar produtos")
     });
   }
 
@@ -49,6 +51,15 @@ export class ListProdutoComponent implements OnInit {
 
   removerProduto(codigo: number): void {
     console.log(`Remover produto com código: ${codigo}`);
+  }
+
+  msgError(msg: string) {
+    Swal.fire({
+      icon: "error",
+      title: msg,
+      showConfirmButton: false,
+      timer: 3000
+    });
   }
 }
 
