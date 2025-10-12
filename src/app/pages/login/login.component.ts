@@ -54,22 +54,6 @@ export class LoginComponent {
     );
   }
 
-  abrirModalDetalhe(venda: any) {
-    this.exibirModalEsqueciSenha = venda;
-    this.exibirModalEsqueciSenha = true;
-  }
-
-  fecharModalDetalhe() {
-    this.exibirModalEsqueciSenha = false;
-  }
-
-  fecharSeClicarFora(event: MouseEvent) {
-    const modalContent = (event.target as HTMLElement).closest('.quadro');
-    if (!modalContent) {
-      this.fecharModalDetalhe();
-    }
-  }
-
   msgAlert(msg: string) {
     Swal.fire(msg, '', 'info');
   }

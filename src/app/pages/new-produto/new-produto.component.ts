@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class NewProdutoComponent {
   produtoForm: FormGroup;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,13 +40,16 @@ export class NewProdutoComponent {
       this.produtoForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
     this.produtoService.adicionarProduto(this.produtoForm.value).subscribe({
       next: (res: any) => {
         this.msgSucess(res.data.message);
         this.voltar();
+         this.isLoading = false;
       },
       error: (err) => {
         this.msgError("Erro ao salvar produto")
+        this.isLoading = false;
       }
     });
 

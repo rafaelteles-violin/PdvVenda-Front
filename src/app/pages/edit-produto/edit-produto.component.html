@@ -38,7 +38,9 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" type="submit" [disabled]="produtoForm.invalid">Salvar Alterações</button>
+      <button class="btn btn-success" type="submit" [disabled]="produtoForm.invalid">
+        {{ isLoading ? 'Salvando...' : 'Salvar' }}
+      </button>
     </form>
   </div>
 </div>

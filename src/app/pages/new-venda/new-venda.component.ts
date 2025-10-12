@@ -95,15 +95,15 @@ export class NewVendaComponent implements OnInit {
     Swal.fire({
       title: "Deseja confirmar a venda?",
       showCancelButton: true,
-      confirmButtonText: "Finalizar",
+      confirmButtonText: "Confirmar",
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: "info",
-          title: "Processando a venda...",
+          title: "Processando...",
           showConfirmButton: false,
-          timer: 1000
+          timer: 2000
         });
 
         this.confirmarVenda();

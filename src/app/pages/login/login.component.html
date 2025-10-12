@@ -37,15 +37,15 @@
                         <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm login-btn"
                         [disabled]="autenticando"
                         (click)="autenticar()">
-                            Entrar
+                            {{ autenticando ? 'Entrando...' : 'Entrar' }}
                         </button>
                     </div>
                 </form>
 
 
-                <div class="text-center mt-4">
+                <!-- <div class="text-center mt-4">
                     <a href="#" class="small text-muted text-decoration-none">Esqueceu sua senha?</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

@@ -57,7 +57,7 @@
       <div class="card summary-card shadow-sm">
         <div class="card-body text-center">
           <i class="material-icons text-success fs-2">payments</i>
-          <h5 class="mt-2">Total Faturamento</h5>
+          <h5 class="mt-2">Faturamento</h5>
           <h3 class="fw-bold">{{ vendas.totalFaturamento }}</h3>
         </div>
       </div>
@@ -67,7 +67,7 @@
   <!-- TABELA DE VENDAS -->
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white fw-semibold text-center">
-      VENDAS REALIZADAS
+      VENDAS REALIZADAS - {{vendas.filtro}}
     </div>
     <div class="card-body p-0">
       <div class="table-responsive">
@@ -103,7 +103,7 @@
   <!-- TABELA POR PRODUTOS -->
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white fw-semibold text-center">
-      QUANTIDADE VENDIDA
+      QUANTIDADE VENDIDA - {{vendas.filtro}}
     </div>
     <div class="card-body p-0">
       <div class="table-responsive">

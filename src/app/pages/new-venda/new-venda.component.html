@@ -1,11 +1,10 @@
 <div class="card">
-  <div class="container">
-    <div class="menu-section">
-
-      <button class="btn btn-secondary mb-3" (click)="voltar()">
+            <button class="btn btn-secondary mb-3" (click)="voltar()">
         <i class="material-icons">arrow_back</i> Voltar
       </button>
+  <div class="container">
 
+    <div class="menu-section">
       <header>
         <input type="text" class="search__input" placeholder="Procurar Produto" [(ngModel)]="filtro"
           (input)="filtrarProdutos()" />
@@ -26,6 +25,7 @@
     <div class="order-section">
       <div class="order-items">
         <!-- Lista de pedidos -->
+         <h2><i class="material-icons">shopping_cart</i> Carrinho</h2> 
         <div *ngFor="let item of orderItems" class="order-item">
           <img src="assets/images/boloexemplo.png" alt="Bolo" />
           <div class="details">
@@ -42,7 +42,7 @@
       </div>
       <!-- Payment Section -->
       <div class="payment">
-        <h1>Pagamento</h1>
+        <h2>Pagamento</h2>
         <div class="checkbox-container">
           <div class="checkbox-wrapper-16">
             <label class="checkbox-wrapper">

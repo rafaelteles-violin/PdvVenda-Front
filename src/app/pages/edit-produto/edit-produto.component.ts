@@ -17,6 +17,7 @@ import Swal from 'sweetalert2';
 export class EditProdutoComponent implements OnInit {
   produtoForm: FormGroup;
   idProduto: string = '';
+   isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -62,6 +63,7 @@ export class EditProdutoComponent implements OnInit {
       this.produtoForm.markAllAsTouched();
       return;
     }
+    this.isLoading = true;
 
     const produto = {
       nome: this.produtoForm.value.nome,
@@ -74,9 +76,11 @@ export class EditProdutoComponent implements OnInit {
       next: (res: any) => {
         this.msgSucess(res.data.message)
         this.voltar();
+        this.isLoading = false;
       },
       error: (err) => {
         this.msgError("erro ao atualizar produto")
+        this.isLoading = false;
       }
     });
   }

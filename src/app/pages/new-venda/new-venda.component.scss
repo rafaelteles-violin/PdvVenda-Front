@@ -837,15 +837,21 @@ section.modal .quadro button.salvar[disabled] {
 
 
 .payment {
-  padding: 20px;
-  background-color: #f9f9f9;
+ background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 15px; /* Reduz o espaçamento interno */
+  max-height: 330px; /* Define uma altura máxima */
+  overflow: hidden; /* Evita espaço extra */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 
 .payment h1 {
-  font-size: 24px;
-  margin-bottom: 1rem;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .checkbox-container {
@@ -855,12 +861,9 @@ section.modal .quadro button.salvar[disabled] {
 }
 
 .checkbox-wrapper-16 {
-  flex-basis: 48%;   /* Faz com que cada item ocupe 48% da largura, permitindo 2 itens por linha */
-  max-width: 48%;    /* Garantia de largura máxima */
+  flex: 0 0 45%; /* Dois por linha */
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 80px;
+  justify-content: center;
 }
 
 .checkbox-wrapper {
@@ -874,8 +877,8 @@ section.modal .quadro button.salvar[disabled] {
 }
 
 .checkbox-tile {
-  display: flex;
-  align-items: center;
+   padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .checkbox-label {

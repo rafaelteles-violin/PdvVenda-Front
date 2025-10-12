@@ -40,7 +40,9 @@
         </div>
       </div>
 
-      <button class="btn btn-success" type="submit" [disabled]="produtoForm.invalid">Salvar</button>
+      <button class="btn btn-success" type="submit">
+         {{ isLoading ? 'Salvando...' : 'Salvar' }}
+         </button>
     </form>
   </div>
 </div>
