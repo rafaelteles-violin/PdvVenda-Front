@@ -9,5 +9,5 @@ RUN npm run build -- --output-hashing=all
 # Etapa 2 - Servir com Nginx
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/flexy-admin-angular-lite /usr/share/nginx/html
 EXPOSE 8080
