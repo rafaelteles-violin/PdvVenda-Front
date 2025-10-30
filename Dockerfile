@@ -1,13 +1,14 @@
-FROM node:16-alpine3.16 as build
+# Etapa 1 - Build da aplicação Angular
+FROM node:18-alpine AS build
 WORKDIR /app
-COPY ./package*.json ./
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build -- --output-hashing=all
 
-RUN npm ci
-
-COPY ./ ./
-RUN npm run build --output-hashing=all
-
-FROM nginx:1.23.0-alpine
-EXPOSE 8080
+# Etapa 2 - Servir com Nginx
+FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html
+# ajuste o nome do projeto na linha abaixo
+COPY --from=build /app/dist/pdv-venda /usr/share/nginx/html
+EXPOSE 8080
