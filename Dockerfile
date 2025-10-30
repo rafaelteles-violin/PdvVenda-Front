@@ -10,5 +10,5 @@ RUN npm run build -- --output-hashing=all
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 # ajuste o nome do projeto na linha abaixo
-COPY --from=build /app/dist/pdv-venda /usr/share/nginx/html
+COPY --from=build /app/dist/PdVenda-Front /usr/share/nginx/html
 EXPOSE 8080
