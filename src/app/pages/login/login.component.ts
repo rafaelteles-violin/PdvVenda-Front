@@ -23,7 +23,7 @@ export class LoginComponent {
 
   constructor(private authService: AuthService,
     private router: Router,
-    public storage: StorageService
+    public storage: StorageService,
   ) { }
 
   ngOnInit() {
@@ -42,10 +42,14 @@ export class LoginComponent {
       (res: any) => {
         this.autenticando = false;
         this.storage.clear();
-
+ 
         this.storage.setItem(res);
 
-        this.router.navigate(['/home']);
+        if (this.storage.getItem().userToken.perfil == 'Caixa') {
+          this.router.navigate(['/newVenda']);
+        } else {
+          this.router.navigate(['/home']);
+        }
       },
       (error) => {
         this.autenticando = false;

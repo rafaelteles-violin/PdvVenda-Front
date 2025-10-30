@@ -23,9 +23,6 @@
           <mat-form-field class="w-100 fs-16" appearance="outline">
             <input matInput id="codigo" type="text" placeholder="Digite o Código" formControlName="codigo" />
           </mat-form-field>
-          <div class="error" *ngIf="produtoForm.get('codigo')?.invalid && produtoForm.get('codigo')?.touched">
-            Código é obrigatório.
-          </div>
         </div>
 
         <!-- Valor -->
@@ -35,7 +32,7 @@
             <input matInput id="valor" type="number" placeholder="Digite o preço de Venda" formControlName="valor" min="0.01" />
           </mat-form-field>
           <div class="error" *ngIf="produtoForm.get('valor')?.invalid && produtoForm.get('valor')?.touched">
-            Preço é obrigatório e deve ser maior que zero.
+            Preço é obrigatório.
           </div>
         </div>
       </div>

@@ -13,6 +13,7 @@ import {
 } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 
 registerLocaleData(localePt);
 
@@ -54,7 +55,15 @@ export class FinanceiroComponent {
   vendas: any = [];
   isLoading = false;
 
-  constructor(private produtoService: ProdutoService, private router: Router) { }
+  constructor(private produtoService: ProdutoService,
+     private router: Router,
+    private storage: StorageService) { }
+
+  ngOnInit() {
+    if (this.storage.getItem().userToken.perfil == 'Caixa') {
+      this.router.navigate(['/']);
+    }
+  }
 
   filtrarPorData() {
     if (!this.dataInicio || !this.dataFim) {
@@ -72,12 +81,17 @@ export class FinanceiroComponent {
       next: (res: any) => {
         this.vendas = res;
         this.isLoading = false;
-        if(this.vendas.vendaDtos.length == 0){
+        if (this.vendas.vendaDtos.length == 0) {
           this.msgAlert(res.mensagem)
         }
       },
       error: (err) => {
+        if (err.status == 401 || err.status == 403) {
+          this.router.navigate(['/']);
+          return;
+        }
         this.msgError("falha ao consultar venda")
+        this.isLoading = false;
       },
     });
   }

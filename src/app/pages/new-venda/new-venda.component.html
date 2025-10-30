@@ -1,7 +1,8 @@
 <div class="card">
-            <button class="btn btn-secondary mb-3" (click)="voltar()">
-        <i class="material-icons">arrow_back</i> Voltar
-      </button>
+  <button class="btn btn-secondary mb-3" (click)="voltar()"
+  *ngIf="perfil == 'Administrador'">
+    <i class="material-icons">arrow_back</i> Voltar
+  </button>
   <div class="container">
 
     <div class="menu-section">
@@ -25,7 +26,7 @@
     <div class="order-section">
       <div class="order-items">
         <!-- Lista de pedidos -->
-         <h2><i class="material-icons">shopping_cart</i> Carrinho</h2> 
+        <h2><i class="material-icons">shopping_cart</i> Carrinho</h2>
         <div *ngFor="let item of orderItems" class="order-item">
           <img src="assets/images/boloexemplo.png" alt="Bolo" />
           <div class="details">
@@ -95,8 +96,7 @@
         <div class="summary">
           <h2>Total: {{ calcularTotal() }}</h2>
         </div>
-        <button class="payment-button" 
-        (click)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
+        <button class="payment-button" (click)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
           {{ isLoading ? 'Finalizando...' : 'Finalizar venda' }}
         </button>
       </footer>

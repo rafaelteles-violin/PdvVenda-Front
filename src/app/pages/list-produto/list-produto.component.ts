@@ -5,6 +5,7 @@ import { DemoFlexyModule } from 'src/app/demo-flexy-module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProdutoService } from 'src/app/service/produto.service';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-list-produto',
@@ -20,9 +21,13 @@ export class ListProdutoComponent implements OnInit {
 
   constructor(private http: HttpClient,
     private router: Router,
-    private produtoService: ProdutoService) { }
+    private produtoService: ProdutoService,
+  private storage: StorageService) { }
 
   ngOnInit() {
+     if (this.storage.getItem().userToken.perfil == 'Caixa') {
+      this.router.navigate(['/']);
+    }
     this.getProdutos();
   }
 
@@ -36,8 +41,9 @@ export class ListProdutoComponent implements OnInit {
         this.produtos = data;
         this.produtosFiltrados = data;
       },
-
-      error: (err) => this.msgError("Erro ao carregar produtos")
+      error: (err) =>{
+        this.msgError("Erro ao carregar produtos")
+      } 
     });
   }
 

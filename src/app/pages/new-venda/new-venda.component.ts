@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-new-venda',
@@ -24,10 +25,12 @@ export class NewVendaComponent implements OnInit {
   selectedPayment: string = '';
   isLoading = false;
   totalCompra: any;
+  perfil: any;
 
   constructor(
     private produtoService: ProdutoService,
-    private router: Router
+    private router: Router,
+    public storage: StorageService
   ) { }
 
   ngOnInit() {
@@ -47,6 +50,8 @@ export class NewVendaComponent implements OnInit {
         )
       )
     );
+
+    this.perfil = this.storage.getItem().userToken.perfil;
   }
 
   filtrarProdutos() {

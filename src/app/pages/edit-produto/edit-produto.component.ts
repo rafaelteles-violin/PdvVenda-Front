@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProdutoService } from 'src/app/service/produto.service';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-edit-produto',
@@ -17,14 +18,15 @@ import Swal from 'sweetalert2';
 export class EditProdutoComponent implements OnInit {
   produtoForm: FormGroup;
   idProduto: string = '';
-   isLoading: boolean = false;
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private storage: StorageService
   ) {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
@@ -34,6 +36,10 @@ export class EditProdutoComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.storage.getItem().userToken.perfil == 'Caixa') {
+      this.router.navigate(['/']);
+    }
+
     this.idProduto = this.route.snapshot.paramMap.get('id') || '';
     if (this.idProduto) {
       this.carregarProduto(this.idProduto);

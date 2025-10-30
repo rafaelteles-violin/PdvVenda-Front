@@ -13,7 +13,7 @@
             </div>
 
             <!-- Coluna com formulário -->
-            <div class="col-lg-6 bg-white p-5 d-flex flex-column justify-content-center">
+            <div class="col-lg-6 bg-white p-5 justify-content-center">
                 <div class="text-center mb-4">
                     <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="Logo" class="mb-3"
                         style="width: 60px" />
@@ -21,19 +21,19 @@
                 </div>
 
                 <form>
-                    <div class="form-group mb-4">
-                        <label for="usuario" class="form-label fw-medium">Usuário</label>
+                    <div class="form-group mb-4 text-center">
+                        <label for="usuario" class="form-label fw-medium col-1">Usuário</label>
                         <input type="text" id="usuario" class="form-control form-control-lg"
                             placeholder="Digite seu usuário" [(ngModel)]="login" name="usuario" required />
                     </div>
 
-                    <div class="form-group mb-5">
-                        <label for="senha" class="form-label fw-medium">Senha</label>
+                    <div class="form-group mb-5 text-center">
+                        <label for="senha" class="form-label fw-medium col-1">Senha</label>
                         <input type="password" id="senha" class="form-control form-control-lg"
                             placeholder="Digite sua senha" [(ngModel)]="senha" name="senha" required />
                     </div>
 
-                    <div class="d-grid">
+                    <div class="d-grid text-center">
                         <button type="submit" class="btn btn-primary btn-lg fw-semibold shadow-sm login-btn"
                         [disabled]="autenticando"
                         (click)="autenticar()">

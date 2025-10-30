@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ProdutoService } from 'src/app/service/produto.service';
 import Swal from 'sweetalert2';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-new-produto',
@@ -22,13 +23,20 @@ export class NewProdutoComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private produtoService: ProdutoService
+    private produtoService: ProdutoService,
+    private storage: StorageService
   ) {
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],
       codigo: [''],
       valor: [null, [Validators.required, Validators.min(0.01)]]
     });
+  }
+
+  ngOnInit() {
+    if (this.storage.getItem().userToken.perfil == 'Caixa') {
+      this.router.navigate(['/']);
+    }
   }
 
   voltar() {
@@ -45,11 +53,15 @@ export class NewProdutoComponent {
       next: (res: any) => {
         this.msgSucess(res.data.message);
         this.voltar();
-         this.isLoading = false;
+        this.isLoading = false;
       },
       error: (err) => {
-        this.msgError("Erro ao salvar produto")
         this.isLoading = false;
+        if (err.status == 401 || err.status == 403) {
+          this.router.navigate(['/']);
+          return;
+        }
+        this.msgError("Erro ao salvar produto")
       }
     });
 

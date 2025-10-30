@@ -31,3 +31,14 @@ color: #151515;
 #amarelo{
   background-color: #feca0ff8;
 }
+
+.row {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center;     /* Centraliza verticalmente */
+  margin: 20px 0;          /* Espaçamento entre as linhas */
+  background-color: #aad4ff; /* Fundo leve */
+  border-radius: 10px;     /* Cantos arredondados */
+  padding: 20px;           /* Espaço interno */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Leve sombra */
+}
