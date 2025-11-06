@@ -1,4 +1,4 @@
-// produto.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -44,6 +44,14 @@ export class ProdutoService {
   atualizarProduto(obj: any) {
     obj.lojaId = this.lojaContext.lojaId;
     return this.http.put(`${environment.urlApi}produto`, obj, {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.storage.getToken()}`,
+      }),
+    });
+  }
+
+  removerProduto(id: any) {
+    return this.http.delete(`${environment.urlApi}produto/${id}`, {
       headers: new HttpHeaders({
         Authorization: `Bearer ${this.storage.getToken()}`,
       }),

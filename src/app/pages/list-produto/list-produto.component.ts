@@ -22,10 +22,10 @@ export class ListProdutoComponent implements OnInit {
   constructor(private http: HttpClient,
     private router: Router,
     private produtoService: ProdutoService,
-  private storage: StorageService) { }
+    private storage: StorageService) { }
 
   ngOnInit() {
-     if (this.storage.getItem().userToken.perfil == 'Caixa') {
+    if (this.storage.getItem().userToken.perfil == 'Caixa') {
       this.router.navigate(['/']);
     }
     this.getProdutos();
@@ -41,22 +41,62 @@ export class ListProdutoComponent implements OnInit {
         this.produtos = data;
         this.produtosFiltrados = data;
       },
-      error: (err) =>{
+      error: (err) => {
         this.msgError("Erro ao carregar produtos")
-      } 
+      }
     });
   }
 
   filtrarProdutos(termo: string) {
-    termo = termo.toLowerCase();
-    this.produtosFiltrados = this.produtos.filter(p =>
-      (p.codigo && p.codigo.toString().toLowerCase().includes(termo)) ||
-      (p.nome && p.nome.toLowerCase().includes(termo))
-    );
+    termo = termo.trim().toLowerCase();
+    if (!termo) {
+      this.produtosFiltrados = this.produtos;
+      return;
+    }
+
+    const ehNumero = !isNaN(Number(termo)); // verifica se o termo é numérico
+
+    this.produtosFiltrados = this.produtos.filter(p => {
+      const codigoStr = p.codigo?.toString().toLowerCase() || '';
+      const nome = p.nome?.toLowerCase() || '';
+
+      if (ehNumero) {
+        // busca exata para números
+        return codigoStr === termo;
+      } else {
+        // busca parcial para nomes
+        return nome.includes(termo);
+      }
+    });
   }
 
-  removerProduto(codigo: number): void {
-    console.log(`Remover produto com código: ${codigo}`);
+
+
+
+  // removerProduto(codigo: number): void {
+  //   console.log(`Remover produto com código: ${codigo}`);
+  // }
+
+
+  removerProduto(produtoId: number) {
+    Swal.fire({
+      title: "Deseja remover?",
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.produtoService.removerProduto(produtoId).subscribe(
+          (res: any) => {
+            this.msgSucess(res.data.message);
+            this.ngOnInit();
+          },
+          (error) => {
+            this.msgError(error?.error.errors[0]);
+          }
+        );
+      }
+    });
   }
 
   msgError(msg: string) {
@@ -67,6 +107,15 @@ export class ListProdutoComponent implements OnInit {
       timer: 3000
     });
   }
+
+    msgSucess(msg: string) {
+      Swal.fire({
+        icon: "success",
+        title: msg,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
 }
 
 
