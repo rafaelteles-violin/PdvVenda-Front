@@ -1,6 +1,5 @@
 <div class="card">
-  <button class="btn btn-secondary mb-3" (click)="voltar()"
-  *ngIf="perfil == 'Administrador'">
+  <button class="btn btn-secondary mb-3" (click)="voltar()" *ngIf="perfil == 'Administrador'">
     <i class="material-icons">arrow_back</i> Voltar
   </button>
   <div class="container">
@@ -24,80 +23,58 @@
     </div>
 
     <div class="order-section">
+      <h2><i class="material-icons">shopping_cart</i>Carrinho {{orderItems.length}}</h2>
       <div class="order-items">
         <!-- Lista de pedidos -->
-        <h2><i class="material-icons">shopping_cart</i> Carrinho</h2>
-        <div *ngFor="let item of orderItems" class="order-item">
+        <div *ngFor="let item of orderItems; let i = index" class="order-item">
           <img src="assets/images/boloexemplo.png" alt="Bolo" />
           <div class="details">
             <h3>{{ item.nome }}</h3>
+            <p>{{ item.valorTxt }}</p>
           </div>
-          <div class="quantity">
-            <button (click)="alterarQuantidade(item, -1)">-</button>
-            <span>{{ item.quantidade }}</span>
-            <button (click)="alterarQuantidade(item, 1)">+</button>
-          </div>
-          <p>{{ item.valorTxt }}</p>
-          <button class="remove" (click)="removerItem(item)">&times;</button>
+          <button class="remove" (click)="removerItem(i)">&#10006;</button>
         </div>
       </div>
-      <!-- Payment Section -->
       <div class="payment">
-        <h2>Pagamento</h2>
+        <h2>Forma de pagamento</h2>
         <div class="checkbox-container">
-          <div class="checkbox-wrapper-16">
-            <label class="checkbox-wrapper">
-              <input type="radio" name="payment" [(ngModel)]="selectedPayment" value="dinheiro">
+          <div class="checkbox-wrapper-16" *ngFor="let option of paymentOptions">
+            <label class="checkbox-wrapper" [class.active]="selectedPayment === option.value"
+              (click)="selectedPayment = option.value">
+              <input type="radio" name="payment" [value]="option.value" [(ngModel)]="selectedPayment" />
               <span class="checkbox-tile">
                 <span class="checkbox-icon">
-                  <i class="fas fa-money-bill"></i>
+                  <i [class]="option.icon"></i>
                 </span>
-                <span class="checkbox-label">Dinheiro</span>
-              </span>
-            </label>
-          </div>
-          <div class="checkbox-wrapper-16">
-            <label class="checkbox-wrapper">
-              <input type="radio" name="payment" [(ngModel)]="selectedPayment" value="pix">
-              <span class="checkbox-tile">
-                <span class="checkbox-icon">
-                  <i class="fas fa-money-bill"></i>
-                </span>
-                <span class="checkbox-label">Pix</span>
-              </span>
-            </label>
-          </div>
-          <div class="checkbox-wrapper-16">
-            <label class="checkbox-wrapper">
-              <input type="radio" name="payment" [(ngModel)]="selectedPayment" value="debito">
-              <span class="checkbox-tile">
-                <span class="checkbox-icon">
-                  <i class="fas fa-credit-card"></i>
-                </span>
-                <span class="checkbox-label">Débito</span>
-              </span>
-            </label>
-          </div>
-          <div class="checkbox-wrapper-16">
-            <label class="checkbox-wrapper">
-              <input type="radio" name="payment" [(ngModel)]="selectedPayment" value="credito">
-              <span class="checkbox-tile">
-                <span class="checkbox-icon">
-                  <i class="fas fa-credit-card"></i>
-                </span>
-                <span class="checkbox-label">Crédito</span>
+                <span class="checkbox-label">{{ option.label }}</span>
               </span>
             </label>
           </div>
         </div>
       </div>
 
+
       <footer class="baixo">
+        <div class="container-troco" *ngIf="selectedPayment == 'dinheiro' && orderItems.length > 0">
+          <label for="recebido" class="label-troco">Valor recebido:</label>
+          <div class="input-wrapper">
+            <span class="prefix">R$</span>
+            <input type="number" id="recebido" placeholder="0,00" [(ngModel)]="valorPago" (input)="calcularTroco()"
+              class="input-recebido" mask="separator.2" thousandSeparator="." decimalMarker="," />
+          </div>
+        </div>
+
+
         <div class="summary">
+          <div style="padding: 1vh 0" *ngIf="selectedPayment === 'dinheiro' && orderItems.length > 0">
+            <div class="col" style="color: blue"><b>TROCO:</b> <b><span *ngIf="troco != undefined">
+                  {{ troco | currency : "BRL" }}</span></b></div>
+          </div>
+
           <h2>Total: {{ calcularTotal() }}</h2>
         </div>
-        <button class="payment-button" (click)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
-          {{ isLoading ? 'Finalizando...' : 'Finalizar venda' }}
+        <button class="payment-button" (keyup.enter)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
+          {{ isLoading ? 'Finalizando...' : 'Finalizar venda [Enter]' }}
         </button>
       </footer>
     </div>

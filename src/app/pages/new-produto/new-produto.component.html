@@ -8,15 +8,15 @@
     <form [formGroup]="produtoForm" (ngSubmit)="salvarProduto()">
       
       <!-- Nome -->
-      <label for="nome" class="d-block mb-2">Nome</label>
-      <mat-form-field class="w-100 fs-16" appearance="outline">
+      <label for="nome" class="d-block mb-2 col-6">Nome</label>
+      <mat-form-field class="w-100 fs-16 col-6" appearance="outline">
         <input matInput id="nome" type="text" placeholder="Digite o nome do produto" formControlName="nome" />
       </mat-form-field>
-      <div class="error" *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched">
+      <div class="error col-6" *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched">
         Nome é obrigatório.
       </div>
 
-      <div class="form-row">
+      <div class="form-row col-12">
         <!-- Código -->
         <div class="form-group">
           <label for="codigo" class="d-block mb-2">Código</label>
@@ -31,7 +31,7 @@
           <mat-form-field class="w-100 fs-16" appearance="outline">
             <input matInput id="valor" type="number" placeholder="Digite o preço de Venda" formControlName="valor" min="0.01" />
           </mat-form-field>
-          <div class="error" *ngIf="produtoForm.get('valor')?.invalid && produtoForm.get('valor')?.touched">
+          <div class="error col-6" *ngIf="produtoForm.get('valor')?.invalid && produtoForm.get('valor')?.touched">
             Preço é obrigatório.
           </div>
         </div>

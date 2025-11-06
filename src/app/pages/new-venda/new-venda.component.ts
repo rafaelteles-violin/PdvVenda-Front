@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { StorageService } from 'src/app/service/storage.service';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-new-venda',
@@ -26,6 +27,15 @@ export class NewVendaComponent implements OnInit {
   isLoading = false;
   totalCompra: any;
   perfil: any;
+  valorPago: any;
+  troco: number = 0;
+
+  paymentOptions = [
+    { label: 'Dinheiro', value: 'dinheiro', icon: 'fas fa-money-bill' },
+    { label: 'Pix', value: 'pix', icon: 'fas fa-bolt' },
+    { label: 'Débito', value: 'debito', icon: 'fas fa-credit-card' },
+    { label: 'Crédito', value: 'credito', icon: 'far fa-credit-card' }
+  ];
 
   constructor(
     private produtoService: ProdutoService,
@@ -63,26 +73,13 @@ export class NewVendaComponent implements OnInit {
   }
 
   adicionarAoPedido(produto: any) {
-    const itemExistente = this.orderItems.find(item => item.id === produto.id);
-    if (itemExistente) {
-      itemExistente.quantidade += 1;
-    } else {
-      this.orderItems.push({ ...produto, quantidade: 1 });
-    }
+    // Cada clique adiciona um novo item independente
+    const novoItem = { ...produto, quantidade: 1 };
+    this.orderItems.push(novoItem);
   }
 
-  removerItem(item: any) {
-    this.orderItems = this.orderItems.filter(i => i.id !== item.id);
-  }
-
-  alterarQuantidade(item: any, delta: number) {
-    const produto = this.orderItems.find(i => i.id === item.id);
-    if (produto) {
-      produto.quantidade += delta;
-      if (produto.quantidade <= 0) {
-        this.removerItem(produto);
-      }
-    }
+  removerItem(index: number) {
+    this.orderItems.splice(index, 1);
   }
 
   calcularTotal(): string {
@@ -95,30 +92,32 @@ export class NewVendaComponent implements OnInit {
   }
 
 
+  @HostListener('document:keydown.enter', ['$event'])
+  onEnterPress(event: KeyboardEvent) {
+    if (this.isLoading || this.orderItems.length > 0) {
+      this.finalizarVenda();
+    }
+
+  }
 
   finalizarVenda() {
     Swal.fire({
-      title: "Deseja confirmar a venda?",
-      showCancelButton: true,
-      confirmButtonText: "Confirmar",
-      cancelButtonText: "Cancelar"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          icon: "info",
-          title: "Processando...",
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-        this.confirmarVenda();
-      }
+      icon: "info",
+      title: "Processando...",
+      showConfirmButton: false,
+      timer: 2000
     });
+
+    this.confirmarVenda();
   }
 
 
 
   confirmarVenda() {
+    if (this.selectedPayment == '') {
+      this.msgAlert('Selecione a forma de pagamento');
+      return;
+    }
     this.isLoading = true; // desabilita o botão
     const venda = {
       quantidade: this.orderItems.length,
@@ -142,6 +141,11 @@ export class NewVendaComponent implements OnInit {
       });
   }
 
+  calcularTroco() {
+    if (this.valorPago > 0)
+      this.troco = this.valorPago - this.totalCompra;
+  }
+
   msgSucess(msg: string) {
     Swal.fire({
       icon: "success",
@@ -157,6 +161,14 @@ export class NewVendaComponent implements OnInit {
       title: msg,
       showConfirmButton: false,
       timer: 2000
+    });
+  }
+
+  msgAlert(msg: string) {
+    Swal.fire({
+      icon: "info",
+      title: msg,
+      showConfirmButton: true,
     });
   }
 }
