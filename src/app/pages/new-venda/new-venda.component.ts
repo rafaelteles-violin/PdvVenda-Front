@@ -30,7 +30,7 @@ export class NewVendaComponent implements OnInit {
   valorPago: any;
   troco: number = 0;
 
-  dataVenda: string = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+  dataVenda: any
 
   paymentOptions = [
     { label: 'Dinheiro', value: 'dinheiro', icon: 'fas fa-money-bill' },
@@ -47,6 +47,11 @@ export class NewVendaComponent implements OnInit {
 
   ngOnInit() {
     this.produtoService.getProdutos().subscribe(produtos => {
+      if (produtos.length > 0) {
+        this.dataVenda = new Date(produtos[0].dataHoje).toISOString().split('T')[0];
+        console.log(this.dataVenda)
+      }
+
       this.produtosOriginais = produtos;
       this.filtroSubject.next(this.filtro);
     });
