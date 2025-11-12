@@ -27,7 +27,7 @@
       <div class="order-items">
         <!-- Lista de pedidos -->
         <div *ngFor="let item of orderItems; let i = index" class="order-item">
-          <img src="assets/images/boloexemplo.png" alt="Bolo" />
+          <span class="item-index">{{ i + 1 }}.</span>
           <div class="details">
             <h3>{{ item.nome }}</h3>
             <p>{{ item.valorTxt }}</p>
@@ -73,7 +73,18 @@
 
           <h2>Total: {{ calcularTotal() }}</h2>
         </div>
-        <button class="payment-button" (keyup.enter)="finalizarVenda()" [disabled]="isLoading || orderItems.length == 0">
+
+
+        <div class="date-container">
+          <label for="dataVenda">Data da venda:</label>
+          <input type="date" id="dataVenda" [(ngModel)]="dataVenda" class="date-input" />
+        </div>
+
+
+
+
+        <button class="payment-button" (keyup.enter)="finalizarVenda()"
+          [disabled]="isLoading || orderItems.length == 0">
           {{ isLoading ? 'Finalizando...' : 'Finalizar venda [Enter]' }}
         </button>
       </footer>

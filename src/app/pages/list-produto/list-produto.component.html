@@ -52,7 +52,8 @@
                 {{ produto.nome }}
               </td>
               <td>{{ produto.valorTxt || ('R$ ' + produto.valor) }}</td>
-              <td>
+              
+              <td *ngIf="perfil == 'Administrador'">
                 <button class="editar" [routerLink]="['/editProdutos', produto.id]">
                   <i class="material-icons">edit</i>
                   <span class="tooltip">Editar</span>

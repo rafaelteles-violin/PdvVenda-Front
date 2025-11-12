@@ -18,6 +18,7 @@ export class ListProdutoComponent implements OnInit {
 
   produtos: any[] = [];
   produtosFiltrados: any[] = [];
+  perfil: any;
 
   constructor(private http: HttpClient,
     private router: Router,
@@ -25,9 +26,14 @@ export class ListProdutoComponent implements OnInit {
     private storage: StorageService) { }
 
   ngOnInit() {
-    if (this.storage.getItem().userToken.perfil == 'Caixa') {
+    if (this.storage.getItem() == null ||
+    this.storage.getItem().userToken.perfil == 'Caixa') {
       this.router.navigate(['/']);
+      return
     }
+
+    this.perfil = this.storage.getItem().userToken.perfil
+
     this.getProdutos();
   }
 
@@ -108,14 +114,14 @@ export class ListProdutoComponent implements OnInit {
     });
   }
 
-    msgSucess(msg: string) {
-      Swal.fire({
-        icon: "success",
-        title: msg,
-        showConfirmButton: false,
-        timer: 2000
-      });
-    }
+  msgSucess(msg: string) {
+    Swal.fire({
+      icon: "success",
+      title: msg,
+      showConfirmButton: false,
+      timer: 2000
+    });
+  }
 }
 
 

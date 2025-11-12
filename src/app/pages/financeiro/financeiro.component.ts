@@ -60,7 +60,8 @@ export class FinanceiroComponent {
     private storage: StorageService) { }
 
   ngOnInit() {
-    if (this.storage.getItem().userToken.perfil == 'Caixa') {
+    if (this.storage.getItem() == null ||
+        this.storage.getItem().userToken.perfil == 'Caixa') {
       this.router.navigate(['/']);
     }
   }

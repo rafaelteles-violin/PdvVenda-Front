@@ -30,6 +30,8 @@ export class NewVendaComponent implements OnInit {
   valorPago: any;
   troco: number = 0;
 
+  dataVenda: string = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+
   paymentOptions = [
     { label: 'Dinheiro', value: 'dinheiro', icon: 'fas fa-money-bill' },
     { label: 'Pix', value: 'pix', icon: 'fas fa-bolt' },
@@ -123,17 +125,23 @@ export class NewVendaComponent implements OnInit {
       quantidade: this.orderItems.length,
       valorTotal: this.totalCompra,
       formaPagamento: this.selectedPayment,
-      vendaProduto: this.orderItems
+      vendaProduto: this.orderItems,
+      dataVenda: this.dataVenda
     }
 
     this.produtoService.enviarVenda(venda)
       .subscribe({
         next: (res) => {
           this.msgSucess('Venda realizada com sucesso!');
+          this.troco = 0;
+          this.filtro = '';
+          this.filtroSubject.next(this.filtro);
+          this.valorPago = 0
           this.orderItems = [];
         },
         error: (err) => {
-          this.msgError('Erro ao finalizar venda');
+          this.msgError(err.error.errors[0]);
+          this.isLoading = false; // reabilita o botão
         },
         complete: () => {
           this.isLoading = false; // reabilita o botão
@@ -160,7 +168,7 @@ export class NewVendaComponent implements OnInit {
       icon: "error",
       title: msg,
       showConfirmButton: false,
-      timer: 2000
+      timer: 4000
     });
   }
 
